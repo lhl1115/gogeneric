@@ -34,3 +34,40 @@ func TestSortSlice(t *testing.T) {
 	})
 	t.Log("SortSlice Result: ", list)
 }
+
+func TestCompareSlice(t *testing.T) {
+
+	listA := []int{3, 1, 2, 4, 5}
+	listB := []int{1, 2, 3, 4, 5}
+	res := CompareSlice(listA, listB)
+	t.Log("CompareSlice Result: ", res)
+}
+
+func TestMapKeys(t *testing.T) {
+
+	mapTest := map[string]string{
+		"a": "e",
+		"b": "x",
+		"c": "z",
+	}
+	list := MapKeys(mapTest)
+	t.Log("MapKeys Result: ", list)
+}
+
+func TestMapToSlice(t *testing.T) {
+
+	mapTest := map[string]string{
+		"a": "e",
+		"b": "x",
+		"c": "z",
+	}
+	list := MapToSlice(mapTest)
+	t.Log("MapToSlice Result: ", list)
+}
+
+func TestSliceToMap(t *testing.T) {
+
+	list := []int{3, 1, 2, 4, 5}
+	res := SliceToMap(list)
+	t.Log("SliceToMap Result: ", res)
+}
