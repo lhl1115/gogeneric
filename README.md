@@ -24,3 +24,6 @@ cd gogeneric
 ## use -v to print logs
 go test -v 
 ```
+
+## warning
+some functions use reflect code , these functions should be tested before using in production environment.

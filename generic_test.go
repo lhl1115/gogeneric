@@ -35,6 +35,16 @@ func TestSortSlice(t *testing.T) {
 	t.Log("SortSlice Result: ", list)
 }
 
+func TestSliceIndex(t *testing.T) {
+
+	students := []string{
+		"wangmiao",
+		"yewenjie",
+	}
+	res := SliceIndex(students, "luoji")
+	t.Log("SliceIndex Result: ", res)
+}
+
 func TestCompareSlice(t *testing.T) {
 
 	listA := []int{3, 1, 2, 4, 5}
@@ -70,4 +80,29 @@ func TestSliceToMap(t *testing.T) {
 	list := []int{3, 1, 2, 4, 5}
 	res := SliceToMap(list)
 	t.Log("SliceToMap Result: ", res)
+}
+
+type Student struct {
+	Name string
+	Age  uint
+}
+
+func TestStructSliceToMap(t *testing.T) {
+
+	students := []Student{
+		{"wangmiao", 23},
+		{"yewenjie", 65},
+	}
+	res := StructSliceToMap[string]("Name", students)
+	t.Log("StructSliceToMap Result: ", res)
+}
+
+func TestGetFieldArray(t *testing.T) {
+
+	students := []Student{
+		{"wangmiao", 23},
+		{"yewenjie", 65},
+	}
+	res := GetFieldArray[string]("Name", students)
+	t.Log("GetFieldArray Result: ", res)
 }

@@ -1,6 +1,7 @@
 package gogeneric
 
 import (
+	"reflect"
 	"sort"
 )
 
@@ -57,6 +58,17 @@ func (s SliceFn[T]) Less(i, j int) bool {
 	return s.less(s.s[i], s.s[j])
 }
 
+// SliceIndex find ele index in slice
+// if not found, return -1, else return first found index
+func SliceIndex[T comparable](slice []T, ele T) int {
+	for k, v := range slice {
+		if v == ele {
+			return k
+		}
+	}
+	return -1
+}
+
 // CompareSlice compare two slices
 // The result will be 0 if a != b, 1 if a==b
 // same length and every element is same
@@ -103,4 +115,86 @@ func SliceToMap[T comparable](slice []T) map[T]T {
 		mapT[v] = v
 	}
 	return mapT
+}
+
+// StructSliceToMap struct slice to map: []val to map[key]val
+// key: key fieldName
+// Key: key fieldType
+func StructSliceToMap[Key comparable, Value any](key string, slice []Value) map[Key]Value {
+	maps := make(map[Key]Value, len(slice))
+	if len(slice) == 0 {
+		return maps
+	}
+	// check Value Type == reflect.Struct
+	typeT := reflect.TypeOf(slice[0])
+	if typeT.Kind() != reflect.Struct {
+		return maps
+	}
+
+	// check Value has key field
+	val, b := typeT.FieldByName(key)
+	if !b {
+		return maps
+	}
+
+	// check key fieldType == Key
+	var k Key
+	if reflect.ValueOf(k).Kind() != val.Type.Kind() {
+		return maps
+	}
+
+	zero := reflect.Value{}
+
+	// for range keys
+	for _, v := range slice {
+		field := reflect.ValueOf(v)
+		value := field.FieldByName(key)
+		if value == zero {
+			continue
+		}
+		keyV := value.Interface().(Key)
+		if _, ok := maps[keyV]; !ok {
+			maps[keyV] = v
+		}
+	}
+	return maps
+}
+
+// GetFieldArray find one field array in struct slice
+// fieldName: the name of the field
+// Field: the type of the field
+func GetFieldArray[Field any, T any](fieldName string, slice []T) []Field {
+	fields := make([]Field, 0, len(slice))
+	if len(slice) == 0 {
+		return fields
+	}
+	// check T Type == reflect.Struct
+	typeT := reflect.TypeOf(slice[0])
+	if typeT.Kind() != reflect.Struct {
+		return fields
+	}
+
+	// check T has field named fieldName
+	val, b := typeT.FieldByName(fieldName)
+	if !b {
+		return fields
+	}
+
+	// check fieldType == Field
+	var k Field
+	if reflect.ValueOf(k).Kind() != val.Type.Kind() {
+		return fields
+	}
+
+	// for range keys, put the field into slice
+	zero := reflect.Value{}
+	for _, v := range slice {
+		field := reflect.ValueOf(v)
+		value := field.FieldByName(fieldName)
+		if value == zero {
+			continue
+		}
+		fields = append(fields, value.Interface().(Field))
+	}
+	return fields
 }
