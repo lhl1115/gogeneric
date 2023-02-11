@@ -127,6 +127,9 @@ func StructSliceToMap[Key comparable, Value any](key string, slice []Value) map[
 	}
 	// check Value Type == reflect.Struct
 	typeT := reflect.TypeOf(slice[0])
+	if typeT == nil {
+		return maps
+	}
 	if typeT.Kind() != reflect.Struct {
 		return maps
 	}
@@ -170,6 +173,9 @@ func GetFieldArray[Field any, T any](fieldName string, slice []T) []Field {
 	}
 	// check T Type == reflect.Struct
 	typeT := reflect.TypeOf(slice[0])
+	if typeT == nil {
+		return fields
+	}
 	if typeT.Kind() != reflect.Struct {
 		return fields
 	}
