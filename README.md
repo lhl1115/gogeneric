@@ -43,6 +43,3 @@ go test -v
 
 ## warning
 some functions use reflect code , these functions should be tested before using in production environment.
-
-## document
-i write a blog by learning go generic [gogeneric-blog](https://liuhouliang.com/post/gogeneric_01/)
