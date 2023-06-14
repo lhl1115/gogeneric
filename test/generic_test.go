@@ -1,13 +1,14 @@
-package gogeneric
+package test
 
 import (
+	"github.com/lhl1115/gogeneric"
 	"testing"
 )
 
 func TestMin(t *testing.T) {
 	a := 336
 	b := 445
-	c := Min(a, b)
+	c := gogeneric.Min(a, b)
 	// Min Number:  336
 	t.Log("Min Number: ", c)
 }
@@ -15,7 +16,7 @@ func TestMin(t *testing.T) {
 func TestMax(t *testing.T) {
 	a := 336
 	b := 445
-	c := Max(a, b)
+	c := gogeneric.Max(a, b)
 	//  Max Number:  445
 	t.Log("Max Number: ", c)
 }
@@ -26,7 +27,7 @@ func TestCond(t *testing.T) {
 	// if score > 60 {
 	// 	result = "right"
 	// }
-	result := Cond(score > 60, "right", "wrong")
+	result := gogeneric.Cond(score > 60, "right", "wrong")
 	// Cond Result:  right
 	t.Log("Cond Result: ", result)
 }
@@ -34,7 +35,7 @@ func TestCond(t *testing.T) {
 func TestSortSlice(t *testing.T) {
 
 	list := []int{3, 1, 2, 4, 5}
-	SortSlice(list, func(i, j int) bool {
+	gogeneric.SortSlice(list, func(i, j int) bool {
 		return i < j
 	})
 	// SortSlice Result:  [1 2 3 4 5]
@@ -47,7 +48,7 @@ func TestSliceIndex(t *testing.T) {
 		"wangmiao",
 		"yewenjie",
 	}
-	res := SliceIndex(students, "luoji")
+	res := gogeneric.SliceIndex(students, "luoji")
 	// CompareSlice Result:  0
 	t.Log("SliceIndex Result: ", res)
 }
@@ -56,7 +57,7 @@ func TestCompareSlice(t *testing.T) {
 
 	listA := []int{3, 1, 2, 4, 5}
 	listB := []int{1, 2, 3, 4, 5}
-	res := CompareSlice(listA, listB)
+	res := gogeneric.CompareSlice(listA, listB)
 	// CompareSlice Result:  0
 	t.Log("CompareSlice Result: ", res)
 }
@@ -68,7 +69,7 @@ func TestMapKeys(t *testing.T) {
 		"b": "x",
 		"c": "z",
 	}
-	list := MapKeys(mapTest)
+	list := gogeneric.MapKeys(mapTest)
 	// MapKeys Result:  [b c a]
 	t.Log("MapKeys Result: ", list)
 }
@@ -80,7 +81,7 @@ func TestMapToSlice(t *testing.T) {
 		"b": "x",
 		"c": "z",
 	}
-	list := MapToSlice(mapTest)
+	list := gogeneric.MapToSlice(mapTest)
 	// MapToSlice Result:  [e x z]
 	t.Log("MapToSlice Result: ", list)
 }
@@ -88,7 +89,7 @@ func TestMapToSlice(t *testing.T) {
 func TestSliceToMap(t *testing.T) {
 
 	list := []int{3, 1, 2, 4, 5}
-	res := SliceToMap(list)
+	res := gogeneric.SliceToMap(list)
 	// SliceToMap Result:  map[1:1 2:2 3:3 4:4 5:5]
 	t.Log("SliceToMap Result: ", res)
 }
@@ -104,7 +105,7 @@ func TestStructSliceToMap(t *testing.T) {
 		{"wangmiao", 23},
 		{"yewenjie", 65},
 	}
-	res := StructSliceToMap[string]("Name", students)
+	res := gogeneric.StructSliceToMap[string]("Name", students)
 	// StructSliceToMap Result:  map[wangmiao:{wangmiao 23} yewenjie:{yewenjie 65}]
 	t.Log("StructSliceToMap Result: ", res)
 }
@@ -115,7 +116,7 @@ func TestGetFieldArray(t *testing.T) {
 		{"wangmiao", 23},
 		{"yewenjie", 65},
 	}
-	res := GetFieldArray[string]("Name", students)
+	res := gogeneric.GetFieldArray[string]("Name", students)
 	// GetFieldArray Result:  [wangmiao yewenjie]
 	t.Log("GetFieldArray Result: ", res)
 }

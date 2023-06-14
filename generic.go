@@ -10,6 +10,22 @@ type Number interface {
 	~uint | ~uint32 | ~uint64 | ~int | ~int32 | ~int64 | ~float32 | ~float64
 }
 
+// SliceFn implements sort.Interface for a slice of T.
+type SliceFn[T any] struct {
+	s    []T
+	less func(T, T) bool
+}
+
+func (s SliceFn[T]) Len() int {
+	return len(s.s)
+}
+func (s SliceFn[T]) Swap(i, j int) {
+	s.s[i], s.s[j] = s.s[j], s.s[i]
+}
+func (s SliceFn[T]) Less(i, j int) bool {
+	return s.less(s.s[i], s.s[j])
+}
+
 // Min returns the minimum value
 func Min[T Number](base, comp T) T {
 	res := base
@@ -40,22 +56,6 @@ func Cond[T any](condition bool, a, b T) T {
 // implements sort.Interface
 func SortSlice[T any](slice []T, less func(T, T) bool) {
 	sort.Sort(SliceFn[T]{slice, less})
-}
-
-// SliceFn implements sort.Interface for a slice of T.
-type SliceFn[T any] struct {
-	s    []T
-	less func(T, T) bool
-}
-
-func (s SliceFn[T]) Len() int {
-	return len(s.s)
-}
-func (s SliceFn[T]) Swap(i, j int) {
-	s.s[i], s.s[j] = s.s[j], s.s[i]
-}
-func (s SliceFn[T]) Less(i, j int) bool {
-	return s.less(s.s[i], s.s[j])
 }
 
 // SliceIndex find ele index in slice
