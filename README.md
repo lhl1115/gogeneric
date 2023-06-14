@@ -1,15 +1,29 @@
 # gogeneric
-some go generic code as utils
+简体中文 | [English](README-EN.md)
 
-go version >= 1.18
+可以直接使用的go语言泛型和工具函数
 
-## dictionary
+go 版本 >= 1.18
+
+
+## 如何使用
 ```
-generic.go       some go generic functions
-generic_test.go  go test code
+go get -u github.com/lhl1115/gogeneric
+
+max:= gogeneric.Max(3,4)
 ```
 
-## functions list
+## 目录结构
+```
+test   测试代码
+    -- generic_test.go  
+    -- util_test.go     
+    
+generic.go       泛型函数
+util.go          工具函数
+```
+
+## 泛型函数列表
 ``` go
 func Min[T Number](base, comp T) T
 
@@ -25,21 +39,24 @@ func GetFieldArray[Field any, T any](fieldName string, slice []T) []Field
 ...
 ```
 
+## 工具函数列表
+``` go
+func HttpGetJson[T any](apiURL string, headers map[string]string) (*T, error)
 
-## how to use in your project
+func HttpPostJson[T any](apiURL string, request any, headers map[string]string) (response T, err error)
 ```
-go get -u github.com/lhl1115/gogeneric
 
-max:= gogeneric.Max(3,4)
-```
 
-## how to test 
+## 测试方法
 ```
 git clone https://github.com/lhl1115/gogeneric.git
-cd gogeneric
-## use -v to print logs
+cd gogeneric/test
 go test -v 
 ```
 
-## warning
-some functions use reflect code , these functions should be tested before using in production environment.
+## 警告
+部分函数使用了反射，需要足够的测试才能保证正确性
+
+
+## 项目负责人
+[@lhl1115](https://github.com/lhl1115)
